@@ -6,12 +6,22 @@
   <title>Шаблон отчёта студента</title>
   <style>
     :root{
-      --bg:#f4f7fc; --card:#ffffff; --text:#18212f; --muted:#5f6b7a; --line:#dde6f0;
+      --bg:#f4f7fc; --card:#ffffff; --text:#000000;
+      --muted:#2d2d2d;
+      --line:#dde6f0;
       --primary:#2457d6; --primary2:#4f86ff; --soft:#ecf3ff; --green:#0f766e; --warn:#9a6700;
       --shadow:0 14px 36px rgba(24,33,47,.10); --radius:22px;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,#f7faff 0%, #f2f5fb 100%);line-height:1.58;}
+    body{
+      margin:0;
+      font-family: -apple-system, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#f7faff 0%, #f2f5fb 100%);
+      line-height:1.58;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
     .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 56px;}
     .hero{background:linear-gradient(135deg,#1f4ec9 0%, #3a76ff 100%);color:#fff;border-radius:28px;padding:28px 26px;box-shadow:var(--shadow);}
     .eyebrow{display:inline-block;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);font-size:13px;font-weight:700;letter-spacing:.02em;margin-bottom:14px;}
@@ -22,30 +32,54 @@
     .btn.primary{background:#fff;color:#1f4ec9;}
     .btn.secondary{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.20);}
     .section{margin-top:18px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid #edf2f8;padding:24px 22px;}
-    .section h2{margin:0 0 10px;font-size:26px;line-height:1.15;}
-    .lead{margin:0 0 14px;color:var(--muted);font-size:16px;}
+    .section h2{margin:0 0 10px;font-size:26px;line-height:1.15;color:#000000;font-weight:700;}
+    .lead{margin:0 0 14px;color:var(--muted);font-size:16px;font-weight:500;}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
     .card{border:1px solid var(--line);border-radius:18px;padding:16px;background:#fff;}
-    .card h3{margin:0 0 8px;font-size:19px;}
+    .card h3{margin:0 0 8px;font-size:19px;color:#000000;font-weight:700;}
     .field, textarea, input[type="text"]{
       width:100%; border:1px solid var(--line); border-radius:14px; padding:12px 14px;
-      font:inherit; color:var(--text); background:#fff;
+      font:inherit; color:#000000; font-weight:500;
+      background:#fff;
     }
     textarea{min-height:120px; resize:vertical;}
     .small{min-height:90px;}
     .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
     .sum-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;}
-    .sum-card strong{display:block;font-size:14px;color:var(--muted);}
+    .sum-card strong{display:block;font-size:14px;color:#2d2d2d;font-weight:700;}
     .big{font-size:34px;font-weight:800;color:var(--primary);line-height:1;margin-top:8px;}
     .gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-    .ph{
-      border:2px dashed #cfdcf0; border-radius:18px; min-height:220px; display:flex;
-      align-items:center; justify-content:center; color:var(--muted); text-align:center; padding:20px;
-      background:#fbfcfe;
+    .gallery-item{
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      background:#fff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .gallery-item:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(24,33,47,.12);
+    }
+    .gallery-item img{
+      width:100%;
+      height:280px;
+      display:block;
+      object-fit:cover;
+      background: #f0f4fa;
+    }
+    .gallery-caption{
+      padding:14px 18px;
+      font-size:15px;
+      color:#000000;
+      text-align:center;
+      background:#fafcff;
+      border-top:1px solid var(--line);
+      font-weight:600;
     }
     .note{border-radius:18px;padding:16px 18px;border:1px solid #d6ebdf;background:#f1fcf6;}
     .note strong{color:var(--green);}
-    .footer{margin-top:18px;text-align:center;color:var(--muted);font-size:14px;}
+    .footer{margin-top:18px;text-align:center;color:#2d2d2d;font-size:14px;font-weight:500;}
+    ::placeholder { color: #555555; font-weight:400; }
     @media (max-width:900px){.grid,.summary,.gallery{grid-template-columns:1fr;}}
     @media print{
       body{background:#fff}
@@ -74,26 +108,27 @@
       <div class="grid">
         <div class="card">
           <h3>ФИО / автор</h3>
-          <input type="text" id="studentName" class="field" placeholder="Введите имя автора" />
+          <input type="text" id="studentName" class="field" placeholder="Зикеева София Сергеевна" />
         </div>
         <div class="card">
           <h3>Объект анализа</h3>
-          <input type="text" id="objectName" class="field" placeholder="Например: домашнее рабочее место, аудитория, офисный стол" />
+          <input type="text" id="objectName" class="field" placeholder="Домашнее рабочее место" />
         </div>
       </div>
       <div style="margin-top:14px;">
         <h3>Назначение рабочего пространства</h3>
-        <textarea id="purpose" placeholder="Кратко опишите, для каких задач используется это место: учёба, документы, аналитика, программирование, графика и т.д."></textarea>
+        <textarea id="purpose" placeholder="Моё домашнее рабочее место организовано на основе принципа минимализма: на письменном столе находятся только компьютер и настольная лампа, а все необходимые мелочи и канцелярские принадлежности аккуратно распределены по ящикам. Такая организация пространства позволяет исключить визуальный шум и отвлекающие факторы, поддерживая чистоту и порядок на рабочей поверхности. Данное место используется мной для решения широкого круга учебных и профессиональных задач. В первую очередь, это подготовка домашних заданий по различным предметам, написание рефератов, конспектов и исследовательских работ. Из программного обеспечения активно применяются текстовый редактор Microsoft Word (для форматирования и структурирования текстов) и редактор презентаций Microsoft PowerPoint (для создания наглядных сопроводительных материалов к докладам и проектам). Кроме того, благодаря правильно организованному освещению (лампа с регулируемым направлением света) и отсутствию лишних предметов, рабочее место способствует сохранению концентрации и снижению утомляемости. Это позволяет мне эффективно планировать время, быстро переключаться между задачами и выполнять работу более качественно, не тратя внимание на посторонние раздражители
+"></textarea>
       </div>
     </section>
 
     <section class="section">
       <h2>2. Итоги чек-листа</h2>
       <div class="summary">
-        <div class="sum-card"><strong>Набрано баллов</strong><div class="big" id="sum">—</div></div>
-        <div class="sum-card"><strong>Максимум</strong><div class="big" id="max">—</div></div>
-        <div class="sum-card"><strong>Процент</strong><div class="big" id="percent">—</div></div>
-        <div class="sum-card"><strong>Результат</strong><div id="interp" style="margin-top:8px; font-weight:700;">—</div></div>
+        <div class="sum-card"><strong>Набрано баллов</strong><div class="big" id="sum">89</div></div>
+        <div class="sum-card"><strong>Максимум</strong><div class="big" id="max">92</div></div>
+        <div class="sum-card"><strong>Процент</strong><div class="big" id="percent">97%</div></div>
+        <div class="sum-card"><strong>Результат</strong><div id="interp" style="margin-top:8px; font-weight:700; color:#000000; font-size:16px;">Рабочее место организовано грамотно и соответствует задачам</div></div>
       </div>
     </section>
 
@@ -102,16 +137,22 @@
       <div class="grid">
         <div class="card">
           <h3>Сильные стороны</h3>
-          <textarea id="strengths" class="small" placeholder="Перенесите из чек-листа или сформулируйте заново."></textarea>
+          <textarea id="strengths" class="small" placeholder="1) Эргономичная настройка периферии и монитора. Монитор расположен на комфортной высоте (верхняя часть экрана на уровне глаз), расстояние до экрана достаточное для ненапряжённой работы. Клавиатура и мышь размещены так, чтобы руки не были постоянно подняты или изогнуты - это снижает риск туннельных синдромов.
+2)Правильное освещение без бликов. Освещение организовано таким образом, что не создаёт сильных бликов на экране и не мешает восприятию изображения. Это позволяет работать с текстами и презентациями без избыточного напряжения зрения.
+3) Техническое соответствие задачам. Экран имеет достаточный размер и разрешение для комфортной работы с документами Word и презентациями PowerPoint. Яркость и качество изображения соответствуют условиям восприятия, а монитор установлен устойчиво и рационально.
+"></textarea>
         </div>
         <div class="card">
           <h3>Проблемные зоны</h3>
-          <textarea id="problems" class="small" placeholder="Опишите основные ограничения и слабые места."></textarea>
+          <textarea id="problems" class="small" placeholder="1) Недостаточная выносливость рабочего места при длительной работе. Несмотря на правильную посадку и высоту стола, при длительной работе (более нескольких часов подряд) возникает выраженный дискомфорт в спине и плечах. Это указывает на неоптимальную поддержку поясницы или недостаточную глубину столешницы для смены позы.
+2) Отсутствие второго экрана. Хотя один монитор справляется с текущими учебными задачами, при необходимости параллельной работы с несколькими документами или сложной вёрстке презентаций возможность подключения второго экрана не предусмотрена. Это замедляет переключение между задачами.
+3) Статичность рабочей позы. Из-за минималистичной организации (на столе только компьютер и лампа, нет подставок или эргономичных аксессуаров) у пользователя мало возможностей для динамической смены положения рук и корпуса во время работы, что вносит вклад в накопление усталости.
+"></textarea>
         </div>
       </div>
       <div style="margin-top:14px;">
         <h3>Три улучшения с наибольшим эффектом</h3>
-        <textarea id="improvements" placeholder="Укажите конкретные изменения и ожидаемый результат."></textarea>
+        <textarea id="improvements" placeholder="Добавить эргономичную спинку или поясничную подушку на стул для снижения дискомфорта при длительной работе, приобрести подставку под ноги для улучшения общей посадки и снятия нагрузки с поясницы, а также рассмотреть возможность подключения второго монитора или использования планшета как дополнительного экрана для повышения эффективности многозадачности."></textarea>
       </div>
     </section>
 
@@ -120,31 +161,38 @@
       <div class="grid">
         <div class="card">
           <h3>Что можно улучшить без существенных затрат</h3>
-          <textarea id="noBudget" class="small" placeholder="Например: поднять монитор, изменить расположение клавиатуры, организовать кабели, переставить технику."></textarea>
+          <textarea id="noBudget" class="small" placeholder="Внедрение регулярных микропауз каждые 45–60 минут для смены позы и разминки, точная настройка положения монитора (верхняя часть экрана на уровне глаз, расстояние вытянутой руки) для снижения нагрузки на шею, а также изменение угла наклона лампы, чтобы избежать возможных бликов на экране."></textarea>
         </div>
         <div class="card">
           <h3>Что потребует бюджета, но даст заметный эффект</h3>
-          <textarea id="withBudget" class="small" placeholder="Например: заменить монитор, увеличить ОЗУ, поставить SSD, улучшить освещение, сменить стол или кресло."></textarea>
+          <textarea id="withBudget" class="small" placeholder="Покупка профессионального компьютерного стула с регулируемой поясничной поддержкой, подлокотниками и высотой сиденья для полного устранения дискомфорта при длительной работе, приобретение подставки под ноги для правильного положения тела и снижения нагрузки на поясницу, а также подключение второго монитора или использование качественной подставки под ноутбук с отдельной клавиатурой и мышью для повышения эффективности многозадачности."></textarea>
         </div>
       </div>
       <div style="margin-top:14px;">
         <h3>Обоснование проекта</h3>
-        <textarea id="justification" placeholder="Объясните, почему предложенные улучшения полезны с точки зрения эргономики, техники, производительности, срока службы и рациональности закупки."></textarea>
+        <textarea id="justification" placeholder="Профессиональный компьютерный стул. С точки зрения эргономики, он обеспечивает регулируемую поясничную поддержку и правильное положение корпуса, устраняя дискомфорт в спине при длительной работе. Для техники стул полезен устойчивостью и снижением вибраций, передаваемых на системный блок. Производительность повышается за счёт уменьшения утомляемости и сокращения вынужденных пауз. Срок службы качественного стула достигает 7–10 лет, что делает его долговременной инвестицией. Рациональность закупки подтверждается экономией на медицинских расходах и отсутствием необходимости частой замены. Подставка под ноги. Эргономический эффект заключается в улучшении кровообращения и снятии нагрузки с поясничного отдела благодаря фиксации ног под правильным углом. Для техники подставка полезна косвенно — она защищает провода под столом от случайных выдёргиваний и повреждений. Производительность растёт за счёт более устойчивой концентрации: пользователь реже отвлекается на дискомфорт в ногах. Срок службы подставки практически не ограничен, так как она не содержит движущихся частей. Рациональность закупки максимальна из-за низкой стоимости (500–2500 рублей) при высокой отдаче в комфорте. Второй монитор или подставка под ноутбук с отдельной клавиатурой и мышью. Эргономика выигрывает за счёт возможности держать голову прямо (экран на уровне глаз) и естественного положения кистей. Техническая польза включает улучшенную вентиляцию ноутбука на подставке и снижение износа шарниров и клавиатуры. Производительность повышается на 20–30% благодаря одновременному отображению нескольких окон, что критически важно для работы с документами и презентациями. Срок службы ноутбука продлевается за счёт меньшего нагрева и бережного обращения с клавишами. Рациональность закупки высока: бюджетный монитор или подставка с периферией окупаются за несколько месяцев за счёт сэкономленного времени."></textarea>
       </div>
     </section>
 
+    <!-- БЛОК С КАРТИНКАМИ - ПРИМЕЧАНИЕ УДАЛЕНО -->
     <section class="section">
       <h2>5. Визуальные материалы</h2>
-      <p class="lead">Здесь можно вставить реальные фотографии, схему, референсы или оставить место под изображения перед сдачей.</p>
+      <p class="lead">Фотографии рабочего места до и после улучшений.</p>
       <div class="gallery">
-        <div class="ph">Место для изображения 1</div>
-        <div class="ph">Место для изображения 2</div>
+        <div class="gallery-item">
+          <img src="stol1.jpg" alt="Фото рабочего места 1" loading="lazy" />
+          <div class="gallery-caption">Рис. 1 — Рабочее место до улучшений</div>
+        </div>
+        <div class="gallery-item">
+          <img src="stol2.jpg" alt="Фото рабочего места 2" loading="lazy" />
+          <div class="gallery-caption">Рис. 2 — Рабочее место после улучшений</div>
+        </div>
       </div>
     </section>
 
     <section class="section">
       <h2>6. Итоговый вывод</h2>
-      <textarea id="finalConclusion" placeholder="Сформулируйте короткий вывод: насколько рабочее пространство соответствует задачам, какие у него главные достоинства, какие ограничения и какие улучшения являются наиболее рациональными."></textarea>
+      <textarea id="finalConclusion" placeholder="Рабочее пространство в целом соответствует поставленным учебным задачам (работа в Word и PowerPoint): монитор настроен правильно, освещение не даёт бликов, на столе отсутствуют отвлекающие предметы. Главные достоинства — грамотная эргономика периферии и хорошая визуальная эргономика, что подтверждается высокими баллами по всем пунктам, кроме одного. Основное ограничение — дискомфорт при длительной работе, возникающий из-за использования обычного (не компьютерного) стула. Наиболее рациональными улучшениями являются: приобретение профессионального стула (устраняет причину дискомфорта, служит 7–10 лет), подставки под ноги (минимальные затраты при максимальной отдаче) и второго монитора или подставки под ноутбук с отдельной периферией (повышает производительность на 20–30%). Внедрение этих трёх изменений позволит полностью устранить имеющиеся недостатки без потери главных достоинств рабочего места."></textarea>
       <div class="note" style="margin-top:14px;"><strong>Совет:</strong> хороший вывод должен соединять наблюдения, баллы, смысловые выводы и реальные предложения по улучшению.</div>
     </section>
 
