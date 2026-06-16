@@ -187,16 +187,11 @@
       margin: 0;
       transform: scale(1);
     }
-    .radio-group label:has(input:checked) {
-      background: #e0ebff;
+    .radio-group label.checked {
+      background: #dbe7ff;
       border-color: #2563eb;
       color: #0a2c6e;
       box-shadow: 0 0 0 1px rgba(37,99,235,0.2);
-      font-weight: 800;
-    }
-    .radio-group span {
-      font-weight: 800;
-      font-size: 1.05rem;
     }
 
     .stats-row {
@@ -279,23 +274,11 @@
       cursor: pointer;
       transition: 0.2s;
       font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-block;
     }
     .btn-secondary:hover {
       background: #e2e9f2;
-    }
-    .btn-danger {
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      padding: 0.75rem 2rem;
-      border-radius: 2.2rem;
-      font-weight: 700;
-      color: #b42318;
-      cursor: pointer;
-      transition: 0.2s;
-      font-size: 0.9rem;
-    }
-    .btn-danger:hover {
-      background: #fee2e2;
     }
     .actions {
       display: flex;
@@ -343,16 +326,16 @@
     </div>
   </div>
 
-  <div class="grid-2col" id="checklistRoot"></div>
+  <div id="checklistRoot"></div>
 
   <!-- Блок итогов -->
   <div class="section-card">
     <div class="section-title">📊 Итоговая оценка</div>
     <div class="stats-row">
-      <div class="stat-item"><div class="stat-label">Набрано баллов</div><div class="stat-number" id="totalScore">0</div></div>
-      <div class="stat-item"><div class="stat-label">Максимум</div><div class="stat-number" id="maxScoreVal">0</div></div>
-      <div class="stat-item"><div class="stat-label">Процент</div><div class="stat-number" id="percentVal">0%</div></div>
-      <div class="stat-item"><div class="stat-label">Результат</div><div id="resultText" style="font-weight:700; font-size:1rem; margin-top:0.3rem;">—</div></div>
+      <div class="stat-item"><div class="stat-label">Набрано баллов</div><div class="stat-number" id="totalScore">89</div></div>
+      <div class="stat-item"><div class="stat-label">Максимум</div><div class="stat-number" id="maxScoreVal">92</div></div>
+      <div class="stat-item"><div class="stat-label">Процент</div><div class="stat-number" id="percentVal">97%</div></div>
+      <div class="stat-item"><div class="stat-label">Результат</div><div id="resultText" style="font-weight:700; font-size:1rem; margin-top:0.3rem;"><span class="result-badge">Рабочее место организовано грамотно и соответствует задачам</span></div></div>
     </div>
 
     <div class="double-area">
@@ -383,39 +366,42 @@
 
     <div class="actions">
       <button class="btn-primary" id="saveBtn">💾 Сохранить результаты</button>
-      <button class="btn-secondary" onclick="saveAndGoToReport()">📄 Перейти к отчёту</button>
-      <button class="btn-danger" onclick="resetAll()">🔄 Сбросить всё</button>
+      <a class="btn-secondary" href="student_report_template.html" onclick="saveBeforeNavigate()">📄 Перейти к отчёту</a>
+      <button class="btn-secondary" onclick="resetChecklist()" style="background:#fef2f2; color:#b42318; border-color:#fecaca;">🔄 Сбросить всё</button>
     </div>
   </div>
 
-  <footer>Данные сохраняются в локальном хранилище браузера. При смене устройства или браузера данные не переносятся.</footer>
+  <footer>✅ Все данные встроены в файл и сохраняются в локальном хранилище браузера. Чек-лист работает независимо от других файлов.</footer>
 </div>
 
 <script>
 // ============================================================
-// ВАШИ ОТВЕТЫ (из скриншотов) - 89 баллов из 92
+// ВСЕ ВАШИ ДАННЫЕ (89 баллов из 92) - ВСТРОЕНЫ В КОД
 // ============================================================
 const PRESET_SCORES = {
-  // 1. Назначение рабочего места (4 пункта)
+  // 1. Назначение рабочего места (4 пункта) - все по 2
   item_0: '2', item_1: '2', item_2: '2', item_3: '2',
-  // 2. Пространство и компоновка (5 пунктов)
+  // 2. Пространство и компоновка (5 пунктов) - все по 2
   item_4: '2', item_5: '2', item_6: '2', item_7: '2', item_8: '2',
-  // 3. Эргономика (6 пунктов)
+  // 3. Эргономика (6 пунктов) - все по 2
   item_9: '2', item_10: '2', item_11: '2', item_12: '2', item_13: '2', item_14: '2',
-  // 4. Экран и визуальная нагрузка (5 пунктов)
+  // 4. Экран и визуальная нагрузка (5 пунктов) - все по 2
   item_15: '2', item_16: '2', item_17: '2', item_18: '2', item_19: '2',
-  // 5. Форм-фактор и тип техники (5 пунктов)
+  // 5. Форм-фактор и тип техники (5 пунктов) - все по 2
   item_20: '2', item_21: '2', item_22: '2', item_23: '2', item_24: '2',
-  // 6. Оперативная память (5 пунктов)
+  // 6. Оперативная память (5 пунктов) - все по 2
   item_25: '2', item_26: '2', item_27: '2', item_28: '2', item_29: '2',
-  // 7. Накопители данных (5 пунктов)
+  // 7. Накопители данных (5 пунктов) - все по 2
   item_30: '2', item_31: '2', item_32: '2', item_33: '2', item_34: '2',
-  // 8. Надёжность, обслуживание, срок службы (5 пунктов)
+  // 8. Надёжность, обслуживание, срок службы (5 пунктов) - все по 2
   item_35: '2', item_36: '2', item_37: '2', item_38: '2', item_39: '2',
-  // 9. Логика закупки для организации (6 пунктов) - тут 5 баллов потеряно
+  // 9. Логика закупки для организации (6 пунктов) - три по 1, три по 2
   item_40: '2', item_41: '2', item_42: '2', item_43: '1', item_44: '1', item_45: '1'
 };
 
+// ============================================================
+// ВСЕ 9 КАТЕГОРИЙ С ПУНКТАМИ (46 пунктов)
+// ============================================================
 const categories = [
   { name: "1. Назначение рабочего места", desc: "Соответствие конфигурации реальным задачам пользователя.",
     items: [
@@ -492,93 +478,91 @@ const categories = [
     ] }
 ];
 
-let allGroups = [];
-let maxPossible = 0;
-
-const rootEl = document.getElementById("checklistRoot");
-const totalSpan = document.getElementById("totalScore");
-const maxSpan = document.getElementById("maxScoreVal");
-const percentSpan = document.getElementById("percentVal");
-const resultSpan = document.getElementById("resultText");
-const strengthsField = document.getElementById("strengthsField");
-const problemsField = document.getElementById("problemsField");
-const improvementsField = document.getElementById("improvementsField");
-
+// ============================================================
+// ПОСТРОЕНИЕ ЧЕК-ЛИСТА
+// ============================================================
 function buildChecklist() {
-  rootEl.innerHTML = "";
-  allGroups = [];
-  maxPossible = 0;
-  let globalIdx = 0;
-
+  const root = document.getElementById('checklistRoot');
+  root.innerHTML = '';
+  let idx = 0;
+  
   for (let cat of categories) {
-    const card = document.createElement("div");
-    card.className = "category-card";
+    const card = document.createElement('div');
+    card.className = 'category-card';
     card.innerHTML = `<h3>${cat.name}</h3><div class="category-desc">${cat.desc}</div>`;
     
-    const itemsContainer = document.createElement("div");
-    for (let itemText of cat.items) {
-      const key = `item_${globalIdx}`;
-      const row = document.createElement("div");
-      row.className = "item-row";
+    const container = document.createElement('div');
+    for (let text of cat.items) {
+      const key = `item_${idx}`;
+      const val = PRESET_SCORES[key] || '0';
+      const row = document.createElement('div');
+      row.className = 'item-row';
       row.innerHTML = `
-        <div class="item-text">${itemText}</div>
+        <div class="item-text">${text}</div>
         <div class="radio-group">
-          <label><input type="radio" name="${key}" value="0"> 0</label>
-          <label><input type="radio" name="${key}" value="1"> 1</label>
-          <label><input type="radio" name="${key}" value="2"> 2</label>
+          <label class="${val === '0' ? 'checked' : ''}"><input type="radio" name="${key}" value="0" ${val === '0' ? 'checked' : ''}> 0</label>
+          <label class="${val === '1' ? 'checked' : ''}"><input type="radio" name="${key}" value="1" ${val === '1' ? 'checked' : ''}> 1</label>
+          <label class="${val === '2' ? 'checked' : ''}"><input type="radio" name="${key}" value="2" ${val === '2' ? 'checked' : ''}> 2</label>
         </div>
       `;
-      itemsContainer.appendChild(row);
-      allGroups.push({ key, radios: row.querySelectorAll('input[type="radio"]') });
-      globalIdx++;
-      maxPossible += 2;
+      container.appendChild(row);
+      idx++;
     }
-    card.appendChild(itemsContainer);
-    rootEl.appendChild(card);
+    card.appendChild(container);
+    root.appendChild(card);
   }
-  maxSpan.textContent = maxPossible;
 }
 
-function loadPresetScores() {
-  Object.entries(PRESET_SCORES).forEach(([name, val]) => {
-    const input = document.querySelector(`input[name="${name}"][value="${val}"]`);
-    if (input) input.checked = true;
-  });
-  updateSummary();
-}
-
+// ============================================================
+// ОБНОВЛЕНИЕ ИТОГОВОЙ ОЦЕНКИ (на основе отмеченных пунктов)
+// ============================================================
 function updateSummary() {
   let sum = 0;
   document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
     sum += Number(el.value);
   });
-  const percent = maxPossible ? Math.round((sum / maxPossible) * 100) : 0;
-  totalSpan.textContent = sum;
-  percentSpan.textContent = percent + '%';
-
-  let cls = 'bad', text = 'Требуется серьёзная переработка';
-  if (percent >= 81) { cls = 'good'; text = 'Рабочее место организовано грамотно и соответствует задачам'; }
-  else if (percent >= 61) { cls = 'warn'; text = 'Хорошая организация, есть точки для улучшения'; }
-  else if (percent >= 41) { cls = 'warn'; text = 'Место функционально, но заметны ограничения'; }
-  else if (percent >= 21) { cls = 'bad'; text = 'Базовая пригодность, но много слабых мест'; }
+  const max = 92;
+  const percent = Math.round((sum / max) * 100);
   
-  resultSpan.innerHTML = `<span class="result-badge" style="background:${percent >= 81 ? '#e2f3e9' : '#fef3c7'}; color:${percent >= 81 ? '#196f51' : '#92400e'};">${text}</span>`;
+  document.getElementById('totalScore').textContent = sum;
+  document.getElementById('percentVal').textContent = percent + '%';
+  
+  let text = 'Требуется серьёзная переработка';
+  let badgeClass = '';
+  if (percent >= 81) { 
+    text = 'Рабочее место организовано грамотно и соответствует задачам';
+    badgeClass = 'result-badge';
+  } else if (percent >= 61) { 
+    text = 'Хорошая организация, есть точки для улучшения';
+    badgeClass = 'result-badge warning';
+  } else if (percent >= 41) { 
+    text = 'Место функционально, но заметны ограничения';
+    badgeClass = 'result-badge warning';
+  } else { 
+    text = 'Требуется серьёзная переработка';
+    badgeClass = 'result-badge danger';
+  }
+  
+  document.getElementById('resultText').innerHTML = `<span class="${badgeClass}">${text}</span>`;
 }
 
+// ============================================================
+// СОХРАНЕНИЕ В LOCALSTORAGE
+// ============================================================
 function saveData() {
   const scores = {};
   document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
     scores[el.name] = el.value;
   });
   const payload = {
-    scores,
-    strengths: strengthsField.value,
-    problems: problemsField.value,
-    improvements: improvementsField.value,
-    sum: totalSpan.textContent,
-    max: maxSpan.textContent,
-    percent: percentSpan.textContent,
-    interpretation: resultSpan.textContent.trim()
+    scores: scores,
+    strengths: document.getElementById('strengthsField').value,
+    problems: document.getElementById('problemsField').value,
+    improvements: document.getElementById('improvementsField').value,
+    sum: document.getElementById('totalScore').textContent,
+    max: '92',
+    percent: document.getElementById('percentVal').textContent,
+    interpretation: document.getElementById('resultText').textContent.trim()
   };
   localStorage.setItem('workspaceChecklistData', JSON.stringify(payload));
 }
@@ -588,49 +572,69 @@ function loadData() {
   if (!raw) return false;
   try {
     const data = JSON.parse(raw);
+    // Восстанавливаем оценки
     Object.entries(data.scores || {}).forEach(([name, val]) => {
       const input = document.querySelector(`input[name="${name}"][value="${val}"]`);
-      if (input) input.checked = true;
+      if (input) {
+        input.checked = true;
+        // Отмечаем label как checked
+        const label = input.closest('label');
+        if (label) {
+          label.classList.add('checked');
+        }
+      }
     });
-    if (data.strengths) strengthsField.value = data.strengths;
-    if (data.problems) problemsField.value = data.problems;
-    if (data.improvements) improvementsField.value = data.improvements;
+    // Восстанавливаем текстовые поля
+    if (data.strengths) document.getElementById('strengthsField').value = data.strengths;
+    if (data.problems) document.getElementById('problemsField').value = data.problems;
+    if (data.improvements) document.getElementById('improvementsField').value = data.improvements;
     updateSummary();
     return true;
   } catch(e) { return false; }
 }
 
-function resetAll() {
+function saveBeforeNavigate() {
+  saveData();
+  return true;
+}
+
+function resetChecklist() {
   if (confirm('Вы уверены, что хотите сбросить все оценки?')) {
-    document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
-    strengthsField.value = '';
-    problemsField.value = '';
-    improvementsField.value = '';
+    document.querySelectorAll('input[type="radio"]').forEach(el => {
+      el.checked = false;
+      const label = el.closest('label');
+      if (label) label.classList.remove('checked');
+    });
+    document.getElementById('strengthsField').value = '';
+    document.getElementById('problemsField').value = '';
+    document.getElementById('improvementsField').value = '';
     updateSummary();
     localStorage.removeItem('workspaceChecklistData');
     alert('✅ Все оценки сброшены.');
   }
 }
 
-function saveAndGoToReport() {
-  saveData();
-  alert('✅ Результаты сохранены! Переход к шаблону отчёта.');
-  window.location.href = 'student_report_template.html';
-}
-
-document.addEventListener('change', (e) => {
+// ============================================================
+// ОБРАБОТЧИКИ СОБЫТИЙ
+// ============================================================
+document.addEventListener('change', function(e) {
   if (e.target.matches('input[type="radio"]')) {
+    const group = e.target.closest('.radio-group');
+    if (group) {
+      group.querySelectorAll('label').forEach(l => l.classList.remove('checked'));
+      const label = e.target.closest('label');
+      if (label) label.classList.add('checked');
+    }
     updateSummary();
     saveData();
   }
 });
 
-document.getElementById('saveBtn').addEventListener('click', () => {
+document.getElementById('saveBtn').addEventListener('click', function() {
   saveData();
-  const sum = totalSpan.textContent;
-  const max = maxSpan.textContent;
-  const percent = percentSpan.textContent;
-  alert(`✅ Результаты сохранены!\n\nНабрано баллов: ${sum}/${max}\nПроцент: ${percent}\nДанные переданы в шаблон отчёта.`);
+  const sum = document.getElementById('totalScore').textContent;
+  const percent = document.getElementById('percentVal').textContent;
+  alert('✅ Результаты сохранены!\n\nНабрано баллов: ' + sum + '/92\nПроцент: ' + percent + '\nДанные переданы в шаблон отчёта.');
 });
 
 ['strengthsField', 'problemsField', 'improvementsField'].forEach(id => {
@@ -645,10 +649,18 @@ buildChecklist();
 // Сначала пробуем загрузить сохранённые данные
 const hasSaved = loadData();
 
-// Если сохранённых данных нет — загружаем ВАШ пресет (89 баллов)
+// Если сохранённых данных нет - используем встроенный пресет
 if (!hasSaved) {
-  loadPresetScores();
-  // Сохраняем пресет в localStorage, чтобы при перезагрузке он остался
+  // Проставляем все оценки из PRESET_SCORES
+  Object.entries(PRESET_SCORES).forEach(([name, val]) => {
+    const input = document.querySelector(`input[name="${name}"][value="${val}"]`);
+    if (input) {
+      input.checked = true;
+      const label = input.closest('label');
+      if (label) label.classList.add('checked');
+    }
+  });
+  updateSummary();
   saveData();
 }
 
