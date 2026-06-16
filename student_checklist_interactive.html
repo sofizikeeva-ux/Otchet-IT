@@ -52,38 +52,38 @@
 <body>
 <div class="container">
   <div class="header">
-    <div class="header-badge">📋 Оценка рабочего пространства</div>
+    <div class="header-badge">Оценка рабочего пространства</div>
     <h1>Чек-лист организации места</h1>
     <p>Эргономика, техника, эффективность. <strong>0</strong> — не соответствует, <strong>1</strong> — частично, <strong>2</strong> — полностью.</p>
     <div class="nav-links">
-      <a class="nav-btn" href="student_report_template.html">📄 Отчёт</a>
-      <a class="nav-btn" href="student_html_guide.html">📘 Инструкция</a>
-      <a class="nav-btn" href="index.html">🏠 Главная</a>
+      <a class="nav-btn" href="student_report_template.html">Отчёт</a>
+      <a class="nav-btn" href="student_html_guide.html">Инструкция</a>
+      <a class="nav-btn" href="index.html">Главная</a>
     </div>
   </div>
 
   <div class="card">
-    <div class="card-title">📌 Шкала оценки</div>
+    <div class="card-title">Шкала оценки</div>
     <div class="scale-box">
-      ⚫ <strong>0</strong> — не выполнено &nbsp;|&nbsp; ⚫ <strong>1</strong> — частично &nbsp;|&nbsp; ⚫ <strong>2</strong> — полностью
+      <strong>0</strong> — не выполнено &nbsp;|&nbsp; <strong>1</strong> — частично &nbsp;|&nbsp; <strong>2</strong> — полностью
     </div>
   </div>
 
   <div id="checklistRoot"></div>
 
-  <!-- ИТОГОВАЯ ОЦЕНКА - ЖЁСТКО ВСТРОЕНА 89/92 -->
+  <!-- ИТОГОВАЯ ОЦЕНКА -->
   <div class="card">
-    <div class="card-title">📊 Итоговая оценка</div>
+    <div class="card-title">Итоговая оценка</div>
     <div class="stats">
       <div class="stat-item"><div class="stat-label">Набрано баллов</div><div class="stat-number" style="color:#1e4788;">89</div></div>
       <div class="stat-item"><div class="stat-label">Максимум</div><div class="stat-number" style="color:#1e4788;">92</div></div>
       <div class="stat-item"><div class="stat-label">Процент</div><div class="stat-number" style="color:#1e4788;">97%</div></div>
-      <div class="stat-item"><div class="stat-label">Результат</div><div style="margin-top:8px;"><span class="result-badge">✅ Рабочее место организовано грамотно</span></div></div>
+      <div class="stat-item"><div class="stat-label">Результат</div><div style="margin-top:8px;"><span class="result-badge">Рабочее место организовано грамотно и соответствует задачам</span></div></div>
     </div>
 
     <div class="double">
       <div>
-        <h4 style="font-size:15px;margin-bottom:6px;">✅ Три сильные стороны</h4>
+        <h4 style="font-size:15px;margin-bottom:6px;">Три сильные стороны</h4>
         <textarea rows="5" style="min-height:80px;">1) Эргономичная настройка периферии и монитора
 Монитор расположен на комфортной высоте (верхняя часть экрана на уровне глаз), расстояние до экрана достаточное для ненапряжённой работы. Клавиатура и мышь размещены так, чтобы руки не были постоянно подняты или изогнуты.
 
@@ -94,7 +94,7 @@
 Экран имеет достаточный размер и разрешение для комфортной работы с документами Word и презентациями PowerPoint.</textarea>
       </div>
       <div>
-        <h4 style="font-size:15px;margin-bottom:6px;">⚠️ Три проблемные зоны</h4>
+        <h4 style="font-size:15px;margin-bottom:6px;">Три проблемные зоны</h4>
         <textarea rows="5" style="min-height:80px;">1) Недостаточная выносливость при длительной работе
 При длительной работе (более нескольких часов) возникает дискомфорт в спине и плечах. Это указывает на неоптимальную поддержку поясницы.
 
@@ -107,18 +107,18 @@
     </div>
 
     <div>
-      <h4 style="font-size:15px;margin-bottom:6px;">🚀 Три улучшения с наибольшим эффектом</h4>
+      <h4 style="font-size:15px;margin-bottom:6px;">Три улучшения с наибольшим эффектом</h4>
       <textarea rows="3" style="min-height:60px;">Добавить эргономичную спинку или поясничную подушку на стул, приобрести подставку под ноги, рассмотреть возможность подключения второго монитора или использования планшета как дополнительного экрана.</textarea>
     </div>
 
     <div class="actions">
-      <button class="btn btn-primary" onclick="saveAndAlert()">💾 Сохранить результаты</button>
-      <a class="btn btn-secondary" href="student_report_template.html" onclick="saveData()">📄 Перейти к отчёту</a>
-      <button class="btn btn-danger" onclick="resetAll()">🔄 Сбросить всё</button>
+      <button class="btn btn-primary" onclick="saveAndAlert()">Сохранить результаты</button>
+      <a class="btn btn-secondary" href="student_report_template.html" onclick="saveData()">Перейти к отчёту</a>
+      <button class="btn btn-danger" onclick="resetAll()">Сбросить всё</button>
     </div>
   </div>
 
-  <div class="footer">✅ Все данные встроены в файл. Чек-лист показывает 89/92 баллов.</div>
+  <div class="footer">Все данные встроены в файл. Чек-лист показывает 89/92 баллов.</div>
 </div>
 
 <script>
@@ -168,21 +168,20 @@ function buildChecklist() {
   for (let cat of categories) {
     const div = document.createElement('div');
     div.className = 'category';
-    div.innerHTML = `<h3>${cat.name}</h3><div class="category-desc">${cat.desc}</div>`;
+    div.innerHTML = '<h3>' + cat.name + '</h3><div class="category-desc">' + cat.desc + '</div>';
     const container = document.createElement('div');
     for (let text of cat.items) {
-      const key = `item_${idx}`;
+      const key = 'item_' + idx;
       const val = PRESET_SCORES[key] || '0';
       const row = document.createElement('div');
       row.className = 'item';
-      row.innerHTML = `
-        <div class="item-text">${text}</div>
-        <div class="radio-group">
-          <label class="${val==='0'?'checked':''}"><input type="radio" name="${key}" value="0" ${val==='0'?'checked':''}> 0</label>
-          <label class="${val==='1'?'checked':''}"><input type="radio" name="${key}" value="1" ${val==='1'?'checked':''}> 1</label>
-          <label class="${val==='2'?'checked':''}"><input type="radio" name="${key}" value="2" ${val==='2'?'checked':''}> 2</label>
-        </div>
-      `;
+      row.innerHTML = 
+        '<div class="item-text">' + text + '</div>' +
+        '<div class="radio-group">' +
+          '<label class="' + (val === '0' ? 'checked' : '') + '"><input type="radio" name="' + key + '" value="0" ' + (val === '0' ? 'checked' : '') + '> 0</label>' +
+          '<label class="' + (val === '1' ? 'checked' : '') + '"><input type="radio" name="' + key + '" value="1" ' + (val === '1' ? 'checked' : '') + '> 1</label>' +
+          '<label class="' + (val === '2' ? 'checked' : '') + '"><input type="radio" name="' + key + '" value="2" ' + (val === '2' ? 'checked' : '') + '> 2</label>' +
+        '</div>';
       container.appendChild(row);
       idx++;
     }
@@ -196,14 +195,17 @@ function buildChecklist() {
 // ============================================================
 function saveData() {
   const scores = {};
-  document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+  document.querySelectorAll('input[type="radio"]:checked').forEach(function(el) {
     scores[el.name] = el.value;
   });
+  const strengths = document.querySelector('.double textarea:first-child');
+  const problems = document.querySelector('.double textarea:last-child');
+  const improvements = document.querySelector('.double + div textarea');
   const payload = {
     scores: scores,
-    strengths: document.querySelector('.double textarea:first-child')?.value || '',
-    problems: document.querySelector('.double textarea:last-child')?.value || '',
-    improvements: document.querySelector('.double + div textarea')?.value || '',
+    strengths: strengths ? strengths.value : '',
+    problems: problems ? problems.value : '',
+    improvements: improvements ? improvements.value : '',
     sum: '89',
     max: '92',
     percent: '97%',
@@ -215,35 +217,41 @@ function saveData() {
 
 function saveAndAlert() {
   saveData();
-  alert('✅ Результаты сохранены!\n\nНабрано баллов: 89/92 (97%)\nРезультат: Рабочее место организовано грамотно и соответствует задачам');
+  alert('Результаты сохранены!\n\nНабрано баллов: 89/92 (97%)\nРезультат: Рабочее место организовано грамотно и соответствует задачам');
 }
 
 function resetAll() {
   if (confirm('Сбросить все оценки?')) {
-    document.querySelectorAll('input[type="radio"]').forEach(el => {
+    document.querySelectorAll('input[type="radio"]').forEach(function(el) {
       el.checked = false;
-      el.closest('label')?.classList.remove('checked');
+      var label = el.closest('label');
+      if (label) label.classList.remove('checked');
     });
-    // Восстанавливаем пресет
-    Object.entries(PRESET_SCORES).forEach(([name, val]) => {
-      const input = document.querySelector(`input[name="${name}"][value="${val}"]`);
+    Object.keys(PRESET_SCORES).forEach(function(name) {
+      var val = PRESET_SCORES[name];
+      var input = document.querySelector('input[name="' + name + '"][value="' + val + '"]');
       if (input) {
         input.checked = true;
-        input.closest('label')?.classList.add('checked');
+        var label = input.closest('label');
+        if (label) label.classList.add('checked');
       }
     });
     localStorage.removeItem('workspaceChecklistData');
-    alert('✅ Оценки сброшены и восстановлены до 89 баллов.');
+    alert('Оценки сброшены и восстановлены до 89 баллов.');
   }
 }
 
 // Обработка кликов
 document.addEventListener('change', function(e) {
   if (e.target.matches('input[type="radio"]')) {
-    const group = e.target.closest('.radio-group');
+    var group = e.target.closest('.radio-group');
     if (group) {
-      group.querySelectorAll('label').forEach(l => l.classList.remove('checked'));
-      e.target.closest('label')?.classList.add('checked');
+      var labels = group.querySelectorAll('label');
+      for (var i = 0; i < labels.length; i++) {
+        labels[i].classList.remove('checked');
+      }
+      var label = e.target.closest('label');
+      if (label) label.classList.add('checked');
     }
     saveData();
   }
